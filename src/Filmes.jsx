@@ -2,20 +2,17 @@ import { Alert, Box, Button, Checkbox, Container, FormControl, FormControlLabel,
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 
-function Filmes() {
+function Produto() {
   const [ nome, setNome ] = useState( "" );
-  const [ titulo, setTitulo ] = useState( "" );
   const [ descricao, setDescricao ] = useState( "" );
-  const [ ano, setAno ] = useState( "" );
-  const [ duracao, setDuracao ] = useState( "" );
-  const [ categoria, setCategoria ] = useState( "" );
+  const [ tamanho, setTamanho ] = useState( "" );
   const [ imagem, setImagem ] = useState( "" );
-  const [ filmes, setFilmes ] = useState( "" );
+  const [ produto, setProduto ] = useState( "" );
   const [ erro, setErro] = useState( "" );
   
-  function Filmes( evento ) {
+  function Produto( evento ) {
     evento.preventDefault();
-    fetch( process.env.REACT_APP_BACKEND + "filmes", {
+    fetch( process.env.REACT_APP_BACKEND + "produto", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -23,11 +20,8 @@ function Filmes() {
         body: JSON.stringify(
             {
                 nome: nome,
-                titulo: titulo,
                 descricao: descricao,
-                ano: ano,
-                duracao: duracao,
-                categoria: categoria,
+                tamanho: tamanho,
                 imagem: imagem
             }
         )
@@ -36,11 +30,11 @@ function Filmes() {
     .then( ( json ) => {
 
         if( json._id ) {
-            setFilmes( true );
+            setProduto( true );
             setErro( false );
         } else {
             setErro( true );
-            setFilmes( false );
+            setProduto( false );
         }
 
     } )
@@ -58,11 +52,11 @@ function Filmes() {
             flexDirection:"column",
             alignItems:"center"
             }}>
-                  <Typography component="h1" variant='h4'>Cadastrar o Filme</Typography>
-                  { erro && ( <Alert severity="warning" sx={{ mt: 2, mb: 2}}>Filme já cadastrado. Tente novamente por favor!</Alert>) }
-                  { Filmes && ( <Alert severity="success" sx={{ mt: 2, mb: 2}}>obrigado por se cadastrar</Alert>) }
+                  <Typography component="h1" variant='h4'>Cadastrar a roupa cristã que vc deseja!!!</Typography>
+                  { erro && ( <Alert severity="warning" sx={{ mt: 2, mb: 2}}>Blusa esgotada. Tente novamente mais tarde!</Alert>) }
+                  { Produto && ( <Alert severity="success" sx={{ mt: 2, mb: 2}}>obrigado por se cadastrar</Alert>) }
 
-                  <Box component="form" onSubmit={Filmes}>
+                  <Box component="form" onSubmit={Produto}>
                   <TextField 
                     type="text" 
                     label="Nome" 
@@ -70,16 +64,6 @@ function Filmes() {
                     margin="normal" 
                     value={nome}
                     onChange={ (e) => setNome( e.target.value) }
-                    fullWidth
-                    required
-                />
-                <TextField 
-                    type="text" 
-                    label="Titulo" 
-                    variant="filled" 
-                    margin="normal" 
-                    value={titulo}
-                    onChange={ (e) => setTitulo( e.target.value) }
                     fullWidth
                     required
                 />
@@ -93,34 +77,14 @@ function Filmes() {
                     fullWidth
                     required
                 />
-                <TextField 
-                    type="text" 
-                    label="Ano" 
-                    variant="filled" 
-                    margin="normal" 
-                    value={ano}
-                    onChange={ (e) => setAno( e.target.value) }
-                    fullWidth
-                    required
-                />
-                <TextField 
-                    type="text" 
-                    label="Duracao" 
-                    variant="filled"
-                    margin="normal" 
-                    fullWidth
-                    value={duracao}
-                    onChange={ (e) => setDuracao( e.target.value) }
-                    required
-                 />
                  <TextField 
                     type="text" 
-                    label="Categoria" 
+                    label="Tamanho" 
                     variant="filled"
                     margin="normal" 
                     fullWidth
-                    value={categoria}
-                    onChange={ (e) => setCategoria( e.target.value) }
+                    value={tamanho}
+                    onChange={ (e) => setTamanho( e.target.value) }
                     required
                  />
                   <TextField 
@@ -133,11 +97,11 @@ function Filmes() {
                     onChange={ (e) => setImagem( e.target.value) }
                     required
                  />
-                  <Button type="submit"  variant="contained" fullWidth sx={ {mt: 2, mb: 2 }}>Cadastrar o Filme</Button>
+                  <Button type="submit"  variant="contained" fullWidth sx={ {mt: 2, mb: 2 }}>Cadastrar a Roupa</Button>
                 </Box>
         </Box>
     </Container>
   )
 }
 
-export default Filmes
+export default Produto
